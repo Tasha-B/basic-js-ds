@@ -49,15 +49,17 @@ class BinarySearchTree {
       if (node.data === data) {
         return true;
       }
-      return (data < node.data) ? search(node.left, data) : search(node.right, data);
-      }
+      return data < node.data
+        ? search(node.left, data)
+        : search(node.right, data);
     }
+  }
 
   find(data) {
-    retirn findNode(this.base, data)
+    return findNode(this.base, data);
     function findNode(node, data) {
       if (!node) return null;
-      if (node.data === node) return node;
+      if (node.data === data) return node;
       return data < node.data
         ? findNode(node.left, data)
         : findNode(node.right, data);
@@ -65,17 +67,17 @@ class BinarySearchTree {
   }
 
   remove(data) {
-    this.base = del(this.base, data);
+    this.base = delNode(this.base, data);
 
-    function del(node, data) {
+    function delNode(node, data) {
       if (!node) {
         return null;
       }
       if (data < node.data) {
-        node.left = del(node.left, data);
+        node.left = delNode(node.left, data);
         return node;
       } else if (data > node.data) {
-        node.right = del(node.right, data);
+        node.right = delNode(node.right, data);
         return node;
       } else {
         if (!node.left && !node.right) {
@@ -84,7 +86,7 @@ class BinarySearchTree {
 
         if (!node.left) {
           node = node.right;
-          return node.data;
+          return node;
         }
 
         if (!node.right) {
@@ -98,7 +100,7 @@ class BinarySearchTree {
         }
 
         node.data = minRight.data;
-        node.right = del(node.right, minRight.data);
+        node.right = delNode(node.right, minRight.data);
         return node;
       }
     }
@@ -108,6 +110,7 @@ class BinarySearchTree {
     if (!this.base) {
       return null;
     }
+
     let node = this.base;
     while (node.left) {
       node = node.left;
@@ -120,6 +123,7 @@ class BinarySearchTree {
     if (!this.base) {
       return null;
     }
+
     let node = this.base;
     while (node.right) {
       node = node.right;
@@ -128,19 +132,6 @@ class BinarySearchTree {
     return node.data;
   }
 }
-
-// const tree = new BinarySearchTree();
-// tree.add(9);
-// tree.add(14);
-// tree.add(2);
-// tree.add(6);
-// tree.add(128);
-// tree.add(8);
-// tree.add(31);
-// tree.add(54);
-// tree.add(1);
-
-// console.log(tree);
 
 module.exports = {
   BinarySearchTree,
